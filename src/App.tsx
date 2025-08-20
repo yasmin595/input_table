@@ -59,7 +59,7 @@ function App() {
     <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
       {/* Input Form */}
       <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-2xl p-6 mb-8 space-y-6">
-        <h1 className="text-2xl font-bold text-center text-gray-800">
+        <h1 className="text-2xl font-bold text-center text-lime-500 ">
           Input Component Showcase
         </h1>
 
@@ -107,7 +107,7 @@ function App() {
         </div>
 
         <div className="pt-4">
-          <Button className="w-full" onClick={handleSubmit}>
+          <Button className="w-full bg-lime-500 hover:bg-lime-400" onClick={handleSubmit}>
             Submit
           </Button>
         </div>
@@ -115,7 +115,7 @@ function App() {
 
       {/* Users Table */}
       <div className="w-full max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+        <h1 className="text-2xl font-bold text-lime-500 dark:text-gray-100 mb-4">
           Users Table
         </h1>
         <DataTable<User>

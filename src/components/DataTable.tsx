@@ -37,7 +37,7 @@ export function DataTable<T extends { id: number }>({
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl shadow">
+    <div className="overflow-x-auto rounded-2xl shadow mx-auto w-11/12 my-8">
       <table className="min-w-full border-collapse">
         {/* Table Head */}
         <thead className="bg-gray-200 dark:bg-gray-700">
