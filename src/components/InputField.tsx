@@ -1,6 +1,28 @@
 import { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
-import { cn } from "../lib/utils";
+
+// Utility function for conditional classNames
+function cn(...classes: (string | boolean | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export interface InputProps {
+  label?: string;
+  placeholder?: string;
+  helperText?: string;
+  error?: string;
+  disabled?: boolean;
+  invalid?: boolean;
+  loading?: boolean;
+  variant?: "filled" | "outlined" | "ghost";
+  size?: "small" | "medium" | "large";
+  type?: string;
+  clearable?: boolean;
+  passwordToggle?: boolean;
+  theme?: "light" | "dark";
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 const variants = {
   filled: "bg-gray-100 dark:bg-gray-800 border-transparent focus:border-blue-500",
@@ -14,7 +36,7 @@ const sizes = {
   large: "px-4 py-3 text-lg rounded-2xl",
 };
 
-export default function Input({
+export const Input: React.FC<InputProps> = ({
   label,
   placeholder,
   helperText,
@@ -28,21 +50,29 @@ export default function Input({
   clearable,
   passwordToggle,
   theme = "light",
-}) {
+  value: propValue,
+  onChange,
+}) => {
   const [value, setValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const inputValue = propValue ?? value;
   const inputType = passwordToggle && type === "password" && showPassword ? "text" : type;
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    onChange?.(e);
+  };
+
   return (
-    <div className={cn("w-full flex flex-col gap-1", theme === "dark" && "text-white")}> 
+    <div className={cn("w-full flex flex-col gap-1", theme === "dark" && "text-white")}>
       {label && <label className="text-sm font-medium mb-1">{label}</label>}
       <div className="relative w-full">
         <input
           type={inputType}
           disabled={disabled}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={inputValue}
+          onChange={handleChange}
           placeholder={placeholder}
           className={cn(
             "w-full transition-all duration-200 focus:outline-none",
@@ -54,7 +84,7 @@ export default function Input({
             loading && "animate-pulse bg-gray-200 dark:bg-gray-700"
           )}
         />
-        {clearable && value && (
+        {clearable && inputValue && (
           <button
             type="button"
             onClick={() => setValue("")}
@@ -73,10 +103,8 @@ export default function Input({
           </button>
         )}
       </div>
-      {helperText && !error && (
-        <p className="text-xs text-gray-500 dark:text-gray-400">{helperText}</p>
-      )}
+      {helperText && !error && <p className="text-xs text-gray-500 dark:text-gray-400">{helperText}</p>}
       {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
     </div>
   );
-}
+};

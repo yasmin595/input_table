@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { Button } from "./components/ui/button"
 import { Input } from "./components/ui/input"
 import { Label } from "./components/ui/label"
-import { DataTable, Column } from "./components/DataTable"   // ⬅️ Column ইমপোর্ট করতে হবে
+import { DataTable, type Column } from "./components/DataTable"   
 
 interface User {
   id: number
@@ -12,7 +12,7 @@ interface User {
   role: string
 }
 
-const columns: Column<User>[] = [   // ⬅️ টাইপ দেয়া হলো
+const columns: Column<User>[] = [   
   { key: "name", title: "Name", dataIndex: "name", sortable: true },
   { key: "email", title: "Email", dataIndex: "email", sortable: true },
   { key: "role", title: "Role", dataIndex: "role", sortable: false },

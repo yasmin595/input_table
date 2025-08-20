@@ -1,5 +1,7 @@
 // src/components/DataTable.tsx
-import React, { useState } from "react"
+
+import { useState } from "react"
+
 
 export interface Column<T> {
   key: string
